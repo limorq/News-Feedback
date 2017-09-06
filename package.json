@@ -1,0 +1,23 @@
+{
+  "name": "news-feedback",
+  "version": "1.0.0",
+  "description": "News app that allows comments",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limorq/News-Feedback.git"
+  },
+  "author": "Limor Quintal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limorq/News-Feedback/issues"
+  },
+  "homepage": "https://github.com/limorq/News-Feedback#readme",
+  "dependencies": {
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.10"
+  }
+}

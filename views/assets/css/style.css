@@ -1,0 +1,72 @@
+body {
+	background-color: grey;
+}
+
+#bg {
+	background-image: url("../images/wave.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 400px;
+}
+
+ul {
+	list-style: none;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 15px;
+	margin-left: 25%;
+}
+
+ul li {
+	display: inline;
+	margin-left: 4%;
+}
+
+ul li a {
+	text-decoration: none;
+	font-family: 'Amatic SC', cursive;
+  	font-weight: bold;
+	color: black;
+	font-size: 1em;
+}
+
+#blue {
+	background-color: #83c0d1;
+	opacity: 80;
+	border-bottom: 3px solid #474139;
+	border-top: 3px solid #474139;
+}
+
+.pretty {
+	font-family: 'Merrieweather', serif;
+	color: #474139;
+	font-size: 2em;
+	margin-top: 2%;
+	
+	display: inline-block;
+}
+
+.head {
+	margin-top: 15%;
+}
+
+#headFont {
+	font-family: 'Fredericka the Great', cursive;
+	font-size: 4.5em;
+	color: white;
+}
+
+.subFont {
+	font-family: 'Merienda One', cursive;
+	font-size: 1.5em;
+	color: white;
+}
+
+button {
+	background-color: grey;
+	border: 1px solid darkgrey;
+	color: floralwhite
+}
