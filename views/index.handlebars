@@ -1,0 +1,54 @@
+<!--create a navigation bar-->
+	   <nav id = "blue" class="navbar navbar-default">
+  		  <!--brand name-->
+    		<div class="navbar-header">
+      			<p class = "pretty">Your News Updater</p>
+    		</div>
+
+    		<!--buttons-->
+			<ul>
+				<li><a href="#"><img src = "assets/images/home.png"></a></li>
+
+      			<li>
+      				<form action = "/save" method = "GET">
+      					<button class = "btn-lg" type = "submit">Saved Articles</button>
+      				</form>
+      			</li>
+      			<li>
+      				<form action = "/all" method = "POST">
+      					<button class = "btn-lg" type = "submit">Scrape New Articles</button>
+      				</form>
+      			</li>
+    		</ul>
+		</nav>
+
+		<!--body-->
+		<div id = "bg" class = "container">
+			<div class = "head" style = "text-align: center">
+				<h1 id = "headFont">Surfer News Scraper</h1>
+				<h4 class = "subFont">Surfer.com</h4>
+			</div>
+
+
+		<!--articles-->
+		<ul id = "articles">
+			{{#each article}}
+				<li>				
+					<div class = "panel panel-default">
+						<div class = "panel-heading">
+						   	 	<h2>
+						      		{{this.headline}}
+						      	</h2>
+					      		<form id = "save" action="/" method="POST">
+						        	<button type="submit">Save Article</button>
+						      	</form>
+						     	
+					     <div class = "panel-body">
+					     	<a href = "{{this.url}}"><p>{{this.summary}}</p></a>
+					     </div>
+					</div><!--closes panel-->
+				</li>
+		  {{/each}}
+		</ul>
+
+	</div><!--closes container-->	

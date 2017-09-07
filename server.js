@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var exphbs = require("express-handlebars");
 var methodOverride = require("method-override");
+var mongojs = require("mongojs");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-var routes = require("./controllers/news_controller.js");
+var routes = require("./controllers/article-controller.js");
 
 app.use("/", routes);
 
