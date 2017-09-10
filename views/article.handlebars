@@ -32,19 +32,16 @@
 
 		<!--articles-->
 		<ul id = "articles">
-			<!--upon home page load/check to see if there are articles-->
 			{{^hasArticles}}
-				<h1>{{errorMessage}}</h1>
-				
-			<!--if there are articles, render them here-->
+				<h2>{{errorMessage}}</h2>
 			{{/hasArticles}}
-			{{#each article count=20}}
-				<li id = "articlePanel">				
+			{{#each article}}
+				<li>				
 					<div class = "panel panel-default">
 						<div class = "panel-heading">
-						   	 	<h1>
+						   	 	<h2>
 						      		{{this.heading}}
-						      	</h1>
+						      	</h2>
 					      		<form id = "save" action="/" method="POST">
 						        	<button type="submit">Save Article</button>
 						      	</form>
@@ -57,4 +54,4 @@
 		  {{/each}}
 		</ul>
 
-	</div><!--closes container-->	
+	</div><!--closes container-->
