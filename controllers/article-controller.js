@@ -28,8 +28,8 @@ db.once('open', function() {
     var query = article.find({"heading": {$regex: /.+/}, "summary": {$regex: /.+/}, "url": {$regex: /.+/}});
       query.limit(20);
       query.exec(function (err, docs) {
-            var hbsObject = { article: docs, hasArticles: true };
-            res.render("index", hbsObject);
+        var hbsObject = { article: docs, hasArticles: true };
+        res.render("index", hbsObject);
           });      
   });
 
@@ -51,6 +51,7 @@ db.once('open', function() {
         result.url = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("href");
         result.heading = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("title");
         result.summary = $(element).children("div.selects-content").children("p.entry-excerpt").text();
+        result.saved = false;
         
 
         //create a new article and save to DB
@@ -66,6 +67,14 @@ db.once('open', function() {
     res.redirect("/find");
   });   
 });
+
+  //when save button is clicked, the doc is updated
+  router.post("/save/:id", function(req, res) {
+    var articleID = req.params.id;
+    article.update({"_id": articleID}, {$set: {"saved": true}});
+    console.log("updated");
+    
+  });//closes router
 
   router.post("/delete", function(req, res) {
     article.deleteMany();

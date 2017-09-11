@@ -10,7 +10,7 @@
 				<li><a href="#"><img src = "assets/images/home.png"></a></li>
 
       			<li>
-      				<form action = "/save" method = "GET">
+      				<form action = "/saved" method = "GET">
       					<button class = "btn-lg" type = "submit">Saved Articles</button>
       				</form>
       			</li>
@@ -35,7 +35,7 @@
 			<!--upon home page load/check to see if there are articles-->
 			{{^hasArticles}}
 				<h1>{{errorMessage}}</h1>
-				
+
 			<!--if there are articles, render them here-->
 			{{/hasArticles}}
 			{{#each article count=20}}
@@ -45,8 +45,8 @@
 						   	 	<h1>
 						      		{{this.heading}}
 						      	</h1>
-					      		<form id = "save" action="/" method="POST">
-						        	<button type="submit">Save Article</button>
+					      		<form id = "save" action="/save" method="POST">
+						        	<button id = "clickSave" name = "{{this._id}}" type="submit">Save Article</button>
 						      	</form>
 						     	
 					     <div class = "panel-body">
@@ -58,3 +58,20 @@
 		</ul>
 
 	</div><!--closes container-->	
+
+	<script type="text/javascript">
+    // collect article info when save button is clicked
+    $("#clickSave").on("click", function(event) {
+      event.preventDefault();
+      var saveID = $("#clickSave").attr("name");
+      //call our router to update article to saved
+      $.ajax({
+      	method: "POST",
+      	url: "/save/" + saveID
+      })
+      .done(function(data) {
+        console.log("data" + data);
+        alert("Saved the article...");
+      });
+    });
+  </script>
