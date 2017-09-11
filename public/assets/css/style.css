@@ -85,13 +85,18 @@ button {
 	right: 2;
 }
 
+.delete {
+	float: right;
+	right: 2;
+}
+
 .lift {
 	margin-bottom: 5%;
 }
 
 #articlePanel {
 	display: block;
-	width: 1500px;
+	width: 1650px;
 	background-color: floralwhite;
 }
 

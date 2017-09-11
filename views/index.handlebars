@@ -47,10 +47,16 @@
 						      	</h1>
 					      		
 						        	<button class = "save" value = "{{this._id}}" type="submit">Save Article</button>
-						      	
+
+						      	<div>	
+							      	{{#if this.saved}}
+							      		<button class= "delete" value = "{{this._id}}" type = "submit">Delete Article</button>
+							      	{{/if}}
+							      </div>
+						      		
 						     	
 					     <div class = "panel-body">
-					     	<a href = "{{this.url}}"><p>{{this.summary}}</p></a>
+					     	<a href = "https://www.surfer.com{{this.url}}"><p>{{this.summary}}</p></a>
 					     </div>
 					</div><!--closes panel-->
 				</li>
@@ -60,7 +66,8 @@
 	</div><!--closes container-->	
 
 	<script type="text/javascript">
-    // collect article info when save button is clicked
+
+    // save button
     $(document).on("click", ".save", function() {
       event.preventDefault();
       var saveID = $(this).attr("value");
@@ -71,6 +78,20 @@
       })
       .done(function(data) {
         alert("Saved the article...");
+      });
+    });
+
+    //delete button
+    $(".delete").on("click", function() {
+    
+      var saveID = $(this).attr("value");
+      //call our router to update article to saved
+      $.ajax({
+      	method: "POST",
+      	url: "/delete/" + saveID
+      })
+      .done(function(data) {
+        alert("Deleted the article...");
       });
     });
   </script>

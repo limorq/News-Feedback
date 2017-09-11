@@ -34,6 +34,14 @@ db.once('open', function() {
           });      
   });
 
+  //display saved articles when the save button in the navbar is clicked
+  router.get("/saved", function(req, res) {
+    article.find({"saved": true}, function(err, docs) {
+      var hbsObject = { article: docs };
+      res.render("index", hbsObject);
+    });
+  });//router
+
   //Scrape articles from surfer.com when scrape button is clicked
   router.post("/all", function(req, res) {
 
@@ -51,6 +59,8 @@ db.once('open', function() {
 
         // Extract info
         result.url = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("href");
+        result.url = "http://www.surfer.com" + result.url;
+        console.log(result.url);
         result.heading = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("title");
         result.summary = $(element).children("div.selects-content").children("p.entry-excerpt").text();
         result.saved = false;
@@ -68,7 +78,8 @@ db.once('open', function() {
   });   
 });//router
 
-  //when save button on each article is clicked, the article is updated as saved=true
+
+  //save an article ... update to saved=true
   router.post("/save/:id", function(req, res) {
     var articleID = req.params.id;
     article.findOneAndUpdate({"_id": articleID}, {$set: {"saved":true}}, 
@@ -77,21 +88,17 @@ db.once('open', function() {
         res.sendStatus(200);
       }); 
   });//closes router
-      
 
-  //display saved articles when the save button in the navbar is clicked
-  router.get("/saved", function(req, res) {
-    article.find({"saved": true}, function(err, docs) {
-     // console.log("this is what is returned from db: " + docs);
-      var hbsObject = { article: docs };
-      res.render("index", hbsObject);
-    });
+
+  //delete an article ... update to saved=false
+  router.post("/delete/:id", function(req, res) {
+    var articleID = req.params.id;
+    article.findOneAndUpdate({"_id": articleID}, {$set: {"saved":false}}, 
+      function(err, doc) {
+        if (err) throw err;
+        res.redirect("/find");
+      }); 
   });//router
-
-  router.post("/delete", function(req, res) {
-    article.deleteMany();
-    res.sendStauts(200);
-  });
 
   
   
