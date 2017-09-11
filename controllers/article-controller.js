@@ -24,6 +24,7 @@ db.once('open', function() {
     res.render("index", hbsObject);
   });
 
+  //load articles after scrape
   router.get("/find", function(req, res) {
     var query = article.find({"heading": {$regex: /.+/}, "summary": {$regex: /.+/}, "url": {$regex: /.+/}});
       query.limit(20);
@@ -33,6 +34,7 @@ db.once('open', function() {
           });      
   });
 
+  //Scrape articles from surfer.com when scrape button is clicked
   router.post("/all", function(req, res) {
 
     var cheerio = require("cheerio");
@@ -59,30 +61,32 @@ db.once('open', function() {
         art.save(function(err, doc) {
           if (err) {
             console.log("save error" + err)
-          };
-          
-        });
-      
+          };         
+        });     
     }); 
-    res.redirect("/find");
+    res.redirect("/find");//load articles on page
   });   
-});
+});//router
 
-  //when save button is clicked, the doc is updated
+  //when save button on each article is clicked, the article is updated as saved=true
   router.post("/save/:id", function(req, res) {
     var articleID = req.params.id;
-    article.updateOne({"_id": articleID}, {$set: {"saved": true}});
-    console.log("updated");
-    res.sendStatus(200);
+    article.findOneAndUpdate({"_id": articleID}, {$set: {"saved":true}}, 
+      function(err, doc) {
+        if (err) throw err;
+        res.sendStatus(200);
+      }); 
   });//closes router
+      
 
+  //display saved articles when the save button in the navbar is clicked
   router.get("/saved", function(req, res) {
     article.find({"saved": true}, function(err, docs) {
-      console.log("this is what is returned from db: " + docs);
+     // console.log("this is what is returned from db: " + docs);
       var hbsObject = { article: docs };
       res.render("index", hbsObject);
     });
-  });
+  });//router
 
   router.post("/delete", function(req, res) {
     article.deleteMany();

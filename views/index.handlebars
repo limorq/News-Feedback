@@ -7,7 +7,7 @@
 
     		<!--buttons-->
 			<ul>
-				<li><a href="#"><img src = "assets/images/home.png"></a></li>
+				<li><a href="http://localhost:3000/"><img src = "assets/images/home.png"></a></li>
 
       			<li>
       				<form action = "/saved" method = "GET">
@@ -46,7 +46,7 @@
 						      		{{this.heading}}
 						      	</h1>
 					      		
-						        	<button id = "save" name = "{{this._id}}" type="submit">Save Article</button>
+						        	<button class = "save" value = "{{this._id}}" type="submit">Save Article</button>
 						      	
 						     	
 					     <div class = "panel-body">
@@ -61,16 +61,15 @@
 
 	<script type="text/javascript">
     // collect article info when save button is clicked
-    $(document).on("click", "#save", function() {
+    $(document).on("click", ".save", function() {
       event.preventDefault();
-      var saveID = $("#save").attr("name");
+      var saveID = $(this).attr("value");
       //call our router to update article to saved
       $.ajax({
       	method: "POST",
       	url: "/save/" + saveID
       })
       .done(function(data) {
-        console.log("data" + data);
         alert("Saved the article...");
       });
     });
