@@ -45,9 +45,9 @@
 						   	 	<h1>
 						      		{{this.heading}}
 						      	</h1>
-					      		<form id = "save" action="/save" method="POST">
-						        	<button id = "clickSave" name = "{{this._id}}" type="submit">Save Article</button>
-						      	</form>
+					      		
+						        	<button id = "save" name = "{{this._id}}" type="submit">Save Article</button>
+						      	
 						     	
 					     <div class = "panel-body">
 					     	<a href = "{{this.url}}"><p>{{this.summary}}</p></a>
@@ -61,9 +61,9 @@
 
 	<script type="text/javascript">
     // collect article info when save button is clicked
-    $("#clickSave").on("click", function(event) {
+    $(document).on("click", "#save", function() {
       event.preventDefault();
-      var saveID = $("#clickSave").attr("name");
+      var saveID = $("#save").attr("name");
       //call our router to update article to saved
       $.ajax({
       	method: "POST",

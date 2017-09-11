@@ -71,10 +71,18 @@ db.once('open', function() {
   //when save button is clicked, the doc is updated
   router.post("/save/:id", function(req, res) {
     var articleID = req.params.id;
-    article.update({"_id": articleID}, {$set: {"saved": true}});
+    article.updateOne({"_id": articleID}, {$set: {"saved": true}});
     console.log("updated");
-    
+    res.sendStatus(200);
   });//closes router
+
+  router.get("/saved", function(req, res) {
+    article.find({"saved": true}, function(err, docs) {
+      console.log("this is what is returned from db: " + docs);
+      var hbsObject = { article: docs };
+      res.render("index", hbsObject);
+    });
+  });
 
   router.post("/delete", function(req, res) {
     article.deleteMany();
