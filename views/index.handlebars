@@ -45,8 +45,11 @@
 						   	 	<h1>
 						      		{{this.heading}}
 						      	</h1>
-					      		
-						        	<button class = "save" value = "{{this._id}}" type="submit">Save Article</button>
+						      	<div>	
+					      			{{#unless this.saved}}
+						        		<button class = "save" value = "{{this._id}}" type="submit">Save Article</button>
+									{{/unless}}
+								</div>
 
 						      	<div>	
 							      	{{#if this.saved}}
@@ -82,10 +85,10 @@
     });
 
     //delete button
-    $(".delete").on("click", function() {
-    
+    $(".delete").on("click", function() {   
       var saveID = $(this).attr("value");
-      //call our router to update article to saved
+
+      //call our router to update article to deleted
       $.ajax({
       	method: "POST",
       	url: "/delete/" + saveID
@@ -94,4 +97,6 @@
         alert("Deleted the article...");
       });
     });
+
+    
   </script>

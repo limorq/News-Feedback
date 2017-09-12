@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-//var Note = require("../models/commentModel.js");
 var article = require("../models/articleModel.js");
 var mongoose = require("mongoose");
 var Handlebars = require("handlebars");
@@ -59,8 +58,7 @@ db.once('open', function() {
 
         // Extract info
         result.url = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("href");
-        result.url = "http://www.surfer.com" + result.url;
-        console.log(result.url);
+        result.url = result.url;
         result.heading = $(element).children("header.entry-header").children("h3.entry-title").children("a").attr("title");
         result.summary = $(element).children("div.selects-content").children("p.entry-excerpt").text();
         result.saved = false;
@@ -99,8 +97,6 @@ db.once('open', function() {
         res.redirect("/find");
       }); 
   });//router
-
-  
   
 
 }); //closes db connection
